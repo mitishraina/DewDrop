@@ -47,8 +47,8 @@ app.post('/api/sensor-data', (req, res) => {
     res.status(200).json({ message: 'Data received successfully' });
 });
 
-app.get('/api/sensor-data', (req, res) => {
-    res.json(sensorData);
+app.get('/api/sensor-data', async(req, res) => {
+    await res.json(sensorData);
 });
 
 app.get('/api/fog-density', async (req, res) => {
