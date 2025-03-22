@@ -51,6 +51,17 @@ app.get('/api/sensor-data', (req, res) => {
     res.json(sensorData);
 });
 
+app.get('/api/fog-density', async (req, res) => {
+  try {
+      const response = await fetch('http://localhost:5000/api/fog-density');
+      res.json(response.data);
+  } catch (error) {
+      console.error('Error fetching fog density:', error);
+      res.status(500).json({ error: 'Failed to fetch fog density data' });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
 });
