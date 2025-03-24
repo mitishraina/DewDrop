@@ -1,3 +1,5 @@
+### **Note: Click on DewDrop on top of site.**
+
 # 🌫 DewDrop – Sip the sky 🌫
 
 ## Welcome to DewDrop!
