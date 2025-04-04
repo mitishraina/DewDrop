@@ -46,7 +46,7 @@ const Index = () => {
             <div className="min-h-screen background-gradient">
                 {/* Hero Section */}
                 <section className="relative overflow-hidden py-20">
-                    <div className="absolute inset-0 z-0 bg-[url('/lovable-uploads/786d3d74-a10c-4f1b-9fae-b000d5a26898.png')] bg-cover bg-center opacity-10"></div>
+                    <div className="absolute inset-0 z-0 bg-cover bg-center opacity-10"></div>
                     <div className="absolute top-20 right-20 w-72 h-72 bg-blue-400 rounded-full opacity-20 blur-3xl"></div>
                     <div className="absolute bottom-10 left-10 w-64 h-64 bg-cyan-300 rounded-full opacity-20 blur-3xl"></div>
 
@@ -56,7 +56,7 @@ const Index = () => {
                                 <Droplet className="h-20 w-20 text-water-medium" />
                             </div>
                             <h1 className="text-6xl font-bold text-water-dark mb-6">
-                                Dew<span className="text-water-medium">Drop</span>
+                                Dew<span className="text-cyan-200">Drop</span>
                             </h1>
                             <p className="text-xl text-gray-700 mb-10">
                                 Revolutionary atmospheric water generation technology that creates clean drinking water from air.
@@ -101,7 +101,7 @@ const Index = () => {
                 </section>
 
                 {/* Features Quick Overview */}
-                <section className="py-16 bg-white">
+                <section className="py-16 bg-white bg-why">
                     <div className="container mx-auto px-4">
                         <h2 className="text-3xl font-bold text-center text-water-dark mb-16">Why Choose Dew<span className='text-black'>D</span>rop?</h2>
 

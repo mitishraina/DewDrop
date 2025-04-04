@@ -62,6 +62,21 @@ const DevicePage = () => {
                             efficiency={deviceData.metrics.collectionEfficiency}
                             voltage={deviceData.voltage}
                         />
+
+
+                        {/* python models */}
+                        <div className="col-span-2 bg-white rounded-lg shadow-lg p-4 min-h-screen">
+                            <h2 className="text-xl font-semibold mb-4">Fog Density Analysis</h2>
+                            <div className="w-full h-[600px]">
+                                <iframe
+                                    src="http://localhost:8501"
+                                    width="100%"
+                                    height="750vh"
+                                    title="Python Model Visualization"
+                                    className="border-none rounded-md"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

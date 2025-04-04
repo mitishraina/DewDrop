@@ -1,7 +1,32 @@
-import React from 'react';
-import { Droplet, Thermometer, Activity } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Droplet, Thermometer, Activity, Droplets } from 'lucide-react';
+import axios from 'axios';
 
-const WaterQualityMetrics = ({ tds, ph, turbidity }) => {
+const WaterQualityMetrics = () => {
+    const [sensorData, setSensorData] = useState({
+        tds: 0,
+        ph: 0,
+        temperature: 0,
+        humidity: 0
+    });
+
+    useEffect(() => {
+        const fetchSensorData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/sensor-data');
+                setSensorData(response.data);
+            } catch (error) {
+                console.error('Error fetching sensor data:', error);
+            }
+        };
+
+        // Fetch initially and then every 2 seconds
+        fetchSensorData();
+        const interval = setInterval(fetchSensorData, 2000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     // Helper function to determine quality level
     const getQualityLevel = (value, type) => {
         switch (type) {
@@ -32,10 +57,6 @@ const WaterQualityMetrics = ({ tds, ph, turbidity }) => {
         }
     };
 
-    const tdsQuality = getQualityLevel(tds, 'tds');
-    const phQuality = getQualityLevel(ph, 'ph');
-    const turbidityQuality = getQualityLevel(turbidity, 'turbidity');
-
     return (
         <div className="bg-white rounded-lg shadow-md p-6 col-span-1">
             <h3 className="text-lg font-semibold mb-4">Water Quality Metrics</h3>
@@ -48,9 +69,11 @@ const WaterQualityMetrics = ({ tds, ph, turbidity }) => {
                     <div className="flex-1">
                         <div className="flex justify-between">
                             <span className="text-gray-600">TDS (Total Dissolved Solids)</span>
-                            <span className={`font-medium ${getColorClass(tdsQuality)}`}>{tdsQuality}</span>
+                            <span className={`font-medium ${getColorClass(getQualityLevel(sensorData.tds, 'tds'))}`}>
+                                {getQualityLevel(sensorData.tds, 'tds')}
+                            </span>
                         </div>
-                        <div className="mt-1 text-2xl font-semibold">{tds} <span className="text-sm font-normal text-gray-500">ppm</span></div>
+                        <div className="mt-1 text-2xl font-semibold">{sensorData.tds} <span className="text-sm font-normal text-gray-500">ppm</span></div>
                         <p className="text-xs text-gray-500 mt-1">Recommended: &lt;50 ppm</p>
                     </div>
                 </div>
@@ -62,24 +85,36 @@ const WaterQualityMetrics = ({ tds, ph, turbidity }) => {
                     <div className="flex-1">
                         <div className="flex justify-between">
                             <span className="text-gray-600">pH Level</span>
-                            <span className={`font-medium ${getColorClass(phQuality)}`}>{phQuality}</span>
+                            <span className={`font-medium ${getColorClass(getQualityLevel(sensorData.ph, 'ph'))}`}>
+                                {getQualityLevel(sensorData.ph, 'ph')}
+                            </span>
                         </div>
-                        <div className="mt-1 text-2xl font-semibold">{ph}</div>
+                        <div className="mt-1 text-2xl font-semibold">{sensorData.ph}</div>
                         <p className="text-xs text-gray-500 mt-1">Recommended: 6.5-8.5</p>
                     </div>
                 </div>
 
                 <div className="flex items-start">
-                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                        <Activity className="h-5 w-5 text-purple-600" />
+                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                        <Thermometer className="h-5 w-5 text-orange-600" />
                     </div>
                     <div className="flex-1">
                         <div className="flex justify-between">
-                            <span className="text-gray-600">Turbidity</span>
-                            <span className={`font-medium ${getColorClass(turbidityQuality)}`}>{turbidityQuality}</span>
+                            <span className="text-gray-600">Temperature</span>
                         </div>
-                        <div className="mt-1 text-2xl font-semibold">{turbidity} <span className="text-sm font-normal text-gray-500">NTU</span></div>
-                        <p className="text-xs text-gray-500 mt-1">Recommended: &lt;1 NTU</p>
+                        <div className="mt-1 text-2xl font-semibold">{sensorData.temperature} <span className="text-sm font-normal text-gray-500">°C</span></div>
+                    </div>
+                </div>
+
+                <div className="flex items-start">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                        <Droplets className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                        <div className="flex justify-between">
+                            <span className="text-gray-600">Humidity</span>
+                        </div>
+                        <div className="mt-1 text-2xl font-semibold">{sensorData.humidity} <span className="text-sm font-normal text-gray-500">%</span></div>
                     </div>
                 </div>
             </div>
@@ -87,4 +122,4 @@ const WaterQualityMetrics = ({ tds, ph, turbidity }) => {
     );
 };
 
-export default WaterQualityMetrics; 
+export default WaterQualityMetrics;

@@ -64,7 +64,7 @@ const Layout = ({ children }) => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-white/80 backdrop-blur-sm border-t border-gray-200">
+            <footer className="bg-white/80 backdrop-blur-sm bg-footer">
                 <div className="container mx-auto px-4 py-6">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">

@@ -116,3 +116,37 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #008B8B;
 } 
+
+/* .background-gradient {
+  background-color: #f4f4f6;
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgba(254, 253, 255, 0.579) 0,
+      transparent 50%
+    ),
+    radial-gradient(at 0% 0%, rgb(0, 0, 0) 0, transparent 50%),
+    radial-gradient(at 50% 0%, #4DD0E1 0, transparent 50%),
+    radial-gradient(at 100% 0%, #ffffff 0, transparent 50%);
+}
+
+.bg-why {
+  background-color: #f4f4f6;
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgba(254, 253, 255, 0.794) 0,
+      transparent 100%
+    ),
+    radial-gradient(at 1% 0%, rgb(0, 0, 0) 0, transparent 28%),
+    radial-gradient(at 44% 3%, #4dd0e18e 0, transparent 28%),
+    radial-gradient(at 100% 0%, #ffffff 0, transparent 10%);
+}
+
+.bg-footer {
+  background-color: #ffffff8d;
+  background-image: radial-gradient(
+      at 0% 100%,
+      rgba(254, 253, 255, 0.794) 0,
+      transparent 53%
+    ),
+    radial-gradient(at 50% 150%, #a8ff78 0, transparent 50%);
+} */
