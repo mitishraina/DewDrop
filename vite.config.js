@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     port: 5173,
   },
   plugins: [react()].filter(Boolean),
-  base: "/",
+  base: "/DewDrop",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
