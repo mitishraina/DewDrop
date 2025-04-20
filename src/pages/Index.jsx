@@ -56,7 +56,7 @@ const Index = () => {
                                 <Droplet className="h-20 w-20 text-water-medium" />
                             </div>
                             <h1 className="text-6xl font-bold text-water-dark mb-6">
-                                Dew<span className="text-cyan-200">Drop</span>
+                                Dew<span className="text-cyan-400">Drop</span>
                             </h1>
                             <p className="text-xl text-gray-700 mb-10">
                                 Revolutionary atmospheric water generation technology that creates clean drinking water from air.

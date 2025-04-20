@@ -12,8 +12,8 @@ const DevicePage = () => {
     // Mock fog harvesting station data
     const deviceData = {
         deviceId: deviceId,
-        name: 'Desert Station Alpha',
-        location: 'Dune Valley, Rajasthan',
+        name: 'Vihaan 8.0',
+        location: 'DTU Campus, Delhi',
         status: 'Active',
         voltage: '20,000V',
         fogDensity: 'High',
@@ -77,6 +77,20 @@ const DevicePage = () => {
                                 />
                             </div>
                         </div>
+
+                        <div className="col-span-2 bg-white rounded-lg shadow-lg p-4 min-h-screen">
+                            <h2 className="text-xl font-semibold mb-4">Fog Density Analysis</h2>
+                            <div className="w-full h-[600px]">
+                                <iframe
+                                    src="http://localhost:8502"
+                                    width="100%"
+                                    height="750vh"
+                                    title="Python Model Visualization"
+                                    className="border-none rounded-md"
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
