@@ -92,18 +92,18 @@ const UserDashboard = () => {
         <Layout>
             <div className="container mx-auto px-4 py-8">
                 <div className="mb-8">
-                    <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+                    <h1 className="text-2xl font-bold text-white">Dashboard</h1>
                 </div>
 
                 <div className="mb-8">
                     <div className="flex justify-between items-center mb-6">
                         <div>
-                            <h2 className="text-2xl font-bold text-gray-900">My Water Dashboard</h2>
-                            <p className="text-gray-500">Monitor and manage your DewDrop devices and water generation</p>
+                            <h2 className="text-2xl font-bold text-white">My Water Dashboard</h2>
+                            <p className="text-white">Monitor and manage your DewDrop devices and water generation</p>
                         </div>
                         <Link
                             to="/device/main"
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                            className="px-4 py-2 gradient-vertical hover:gradient-vertical-reverse duration-200 text-white rounded-md transition"
                         >
                             View Main Device
                         </Link>

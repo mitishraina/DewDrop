@@ -10,8 +10,11 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminPanel from "./pages/AdminPanel";
 import DevicePage from "./pages/DevicePage";
 import HomePage from "./pages/HomePage";
+import Profile from "./pages/Profile";
 import LoadingDroplet from "./components/LoadingDroplet";
 import "./App.css";
+import LiquidChrome from "./styles/LiquidChrome";
+import ScrollToTop from "./styles/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -20,10 +23,8 @@ const NavigationLoader = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        // Show loading state when navigation starts
         setIsLoading(true);
 
-        // Hide loading state after a short delay to simulate page loading
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 800);
@@ -37,14 +38,29 @@ const NavigationLoader = () => {
 const AppRoutes = () => (
     <>
         <NavigationLoader />
-        <Routes>
-            <Route path="/DewDrop" element={<Index />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/device/:deviceId" element={<DevicePage />} />
-            <Route path="/user-dashboard" element={<UserDashboard />} />
-            <Route path="/admin-panel" element={<AdminPanel />} />
-            <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div style={{ width: '100%', position: 'absolute' }}>
+            <LiquidChrome
+                baseColor={[0, 0.3, 0.4]}
+                speed={0.15}
+                amplitude={0.3}
+                interactive={true}
+                className="h-[1400px]"
+            >
+            </LiquidChrome>
+        </div>
+        <div className="relative z-10">
+            <ScrollToTop />
+            <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/device/:deviceId" element={<DevicePage />} />
+                <Route path="/user-dashboard" element={<UserDashboard />} />
+                <Route path="/admin-panel" element={<AdminPanel />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+
+        </div>
     </>
 );
 

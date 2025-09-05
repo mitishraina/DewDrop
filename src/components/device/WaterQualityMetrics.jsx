@@ -141,7 +141,7 @@ const WaterQualityMetrics = () => {
                 </div>
             </div>
             <div className="col-span-full">
-                <div className={`p-4 rounded-lg ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                <div className={`p-4 mt-3 duration-200 rounded-lg ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-500 text-white'}`}>
                     <p className="text-center font-medium">
                         {isConnected ? 'Device Connected' : 'Device Not Connected'}
                     </p>

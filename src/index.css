@@ -109,13 +109,22 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #20B2AA;
-  border-radius: 5px;
+  background: #3e7199;
+  border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #008B8B;
-} 
+.text-gradient {
+  background-color: #fff;
+  background-image: radial-gradient(
+      at 4% 36%,
+      hsla(0, 0%, 100%, 1) 0,
+      transparent 53%
+    ),
+    radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 /* .background-gradient {
   background-color: #f4f4f6;

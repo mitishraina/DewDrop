@@ -1,36 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { Droplet, Wind, Thermometer, Activity, BarChart2, Shield, Globe, Settings } from 'lucide-react';
+import { Droplet, Wind, Activity, BarChart2, Shield, Globe, Settings } from 'lucide-react';
 
 const HomePage = () => {
     return (
         <Layout>
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen flex flex-col p-3 rounded-xl">
                 {/* Hero Section */}
-                <section className="py-20 bg-gradient-to-r from-blue-50 to-cyan-50">
+                <section className="py-16 rounded-t-[40px] mt-7 bg-gradient-to-r bg-white">
                     <div className="container mx-auto px-4">
                         <div className="flex flex-col lg:flex-row items-center gap-12">
-                            <div className="lg:w-1/2">
+                            <div className="lg:w-4/5">
                                 <h1 className="text-4xl md:text-5xl font-bold text-water-dark mb-6 leading-tight">
                                     Generate Clean Water <span className="text-water-medium">From Air</span>
                                 </h1>
                                 <p className="text-xl text-gray-700 mb-8">
-                                    Dew<span className='text-water-dark'>D</span>rop is revolutionizing water access with innovative atmospheric water generation technology.
+                                    Dew<span className='text-black'>D</span>rop is revolutionizing water access with innovative atmospheric water generation technology.
                                     Our devices extract clean drinking water from the air around you, eliminating the need for plastic bottles and water delivery services.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <Link to="/user-dashboard" className="bg-water-dark hover:bg-water-dark/90 text-white px-6 py-3 rounded-md font-medium">
+                                    <Link to="/user-dashboard" className="gradient-vertical text-white px-6 py-3 rounded-md font-medium">
                                         Get Started
                                     </Link>
-                                    <Link to="/device/device-001" className="border border-water-medium text-water-dark px-6 py-3 rounded-md font-medium">
+                                    <Link to="/device/device-001" className="border border-water-medium text-water-medium hover:text-black hover:bg-[#4aa2e5] duration-150 px-6 py-3 rounded-md font-medium">
                                         View Your Device
                                     </Link>
                                 </div>
                             </div>
                             <div className="lg:w-1/2 flex justify-center">
                                 <div className="relative water-drop-shadow">
-                                    <div className="w-72 h-72 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 opacity-20 absolute"></div>
+                                    <div className="w-[304px] h-[304px] rounded-full gradient-secondary opacity-20 absolute"></div>
                                     <div className="relative z-10 p-6">
                                         <Droplet className="w-64 h-64 text-water-medium" />
                                     </div>
@@ -85,7 +85,7 @@ const HomePage = () => {
                 </section>
 
                 {/* Features Section */}
-                <section id="features" className="py-20 bg-gradient-to-r from-blue-50 to-cyan-50">
+                <section id="features" className="py-20 bg-gradient-to-r rounded-b-[40px] from-blue-50 to-cyan-50">
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl font-bold text-water-dark mb-4">Smart Water Generation</h2>
@@ -114,7 +114,7 @@ const HomePage = () => {
                             </div>
 
                             <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-all">
-                                <Globe className="h-10 w-10 text-water-medium mx-auto mb-4" />
+                                <Globe className="h-10 w-10 text-water-medium mx-auto mb -4" />
                                 <h3 className="text-lg font-semibold mb-2">Eco-Friendly</h3>
                                 <p className="text-gray-600">Reduce plastic waste and your carbon footprint.</p>
                             </div>

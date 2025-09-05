@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Droplet, Settings, Activity, BarChart2, Shield } from 'lucide-react';
 
-// Simple icon components
 const WaterDropIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -55,10 +54,10 @@ const Index = () => {
                             <div className="mb-8 animate-droplet-bounce">
                                 <Droplet className="h-20 w-20 text-water-medium" />
                             </div>
-                            <h1 className="text-6xl font-bold text-water-dark mb-6">
-                                Dew<span className="text-cyan-400">Drop</span>
+                            <h1 className="text-6xl font-bold text-gray-300 mb-6">
+                                Dew<span className="text-white">Drop</span>
                             </h1>
-                            <p className="text-xl text-gray-700 mb-10">
+                            <p className="text-xl text-white mb-10">
                                 Revolutionary atmospheric water generation technology that creates clean drinking water from air.
                                 Monitor your devices, track water quality, and contribute to a sustainable future.
                             </p>
@@ -101,7 +100,7 @@ const Index = () => {
                 </section>
 
                 {/* Features Quick Overview */}
-                <section className="py-16 bg-white bg-why">
+                <section className="py-16 bg-white bg-why rounded-3xl">
                     <div className="container mx-auto px-4">
                         <h2 className="text-3xl font-bold text-center text-water-dark mb-16">Why Choose Dew<span className='text-black'>D</span>rop?</h2>
 
