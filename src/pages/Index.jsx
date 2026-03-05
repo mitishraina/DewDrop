@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { Droplet, Settings, Activity, BarChart2, Shield } from 'lucide-react';
+import { Droplet, Settings, Activity, BarChart2, Shield, ChevronRight } from 'lucide-react';
 
 const WaterDropIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,6 +61,15 @@ const Index = () => {
                                 Revolutionary atmospheric water generation technology that creates clean drinking water from air.
                                 Monitor your devices, track water quality, and contribute to a sustainable future.
                             </p>
+
+                            <button
+                                type='button'
+                                className='p-4 border-2 rounded-xl bg-white/70 flex items-center'
+                                onClick={() => window.location.href = '/profile'}
+                            >
+                                Get Started 
+                                <ChevronRight size={20} className='inline-block ml-2' />
+                            </button>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-4xl mx-auto mt-6">
                                 <Link to="/home" className="group">

@@ -21,6 +21,11 @@
     background: linear-gradient(180deg, var(--water-light) 0%, #4AA3E5 50%, var(--water-blue) 100%);
 }
 
+.gradient-hover {
+    background: linear-gradient(180deg, var(--water-blue) 0%, #4AA3E5 50%, var(--water-light) 100%);
+    transition: background 0.3s ease-in-out;
+}
+
 /* Text Colors */
 .text-water-dark {
     color: var(--water-blue);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Home, Users, Droplets, ChevronRight } from "lucide-react";
 import Layout from '../components/Layout';
@@ -17,6 +17,8 @@ const Profile = () => {
     waterDemand: "",
     groundwaterDepth: "",
     budget: "",
+    latitude: null,
+    longitude: null,
   });
 
   const handleDetectLocation = () => {
@@ -24,21 +26,23 @@ const Profile = () => {
       alert("Geolocation is not supported by your browser");
       return;
     }
-  
+
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
         console.log("Latitude:", latitude);
         console.log("Longitude:", longitude);
-  
+
         try {
           const res = await axios.get(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
           );
           const currentAddress = res.data.display_name;
           console.log("Current Location:", currentAddress);
-  
+
           updateFormData("address", currentAddress);
+          updateFormData("latitude", latitude);
+          updateFormData("longitude", longitude);
         } catch (error) {
           console.error("Error getting address from coordinates:", error);
           alert("Failed to get location details.");
@@ -50,19 +54,41 @@ const Profile = () => {
       }
     );
   };
-  
+
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   }
 
-  const handleNext = () => {
+  const generateRecommendations = async () => {
+    try {
+      // Try the AI-powered endpoint first
+      const response = await axios.post('http://localhost:3001/api/recommendations', formData);
+      localStorage.setItem('recommendations', JSON.stringify(response.data));
+      console.log('AI Recommendations generated:', response.data);
+    } catch (error) {
+      console.error('AI recommendations failed, trying simple fallback:', error);
+      try {
+        // Fallback to simple calculations
+        const response = await axios.post('http://localhost:3001/api/recommendations-simple', formData);
+        localStorage.setItem('recommendations', JSON.stringify(response.data));
+        console.log('Simple recommendations generated:', response.data);
+      } catch (fallbackError) {
+        console.error('Both recommendation methods failed:', fallbackError);
+        // Continue even if recommendations fail
+      }
+    }
+  };
+
+  const handleNext = async () => {
     if (step < 4) {
       setStep(step + 1);
     } else {
       localStorage.setItem('profileData', JSON.stringify(formData));
       localStorage.setItem("dewdrop_onboarded", "true");
-      navigate("/");
+
+      await generateRecommendations();
+      navigate("/user-dashboard");
     }
   }
 
@@ -280,18 +306,17 @@ const Profile = () => {
             </button>
 
             <button
-            type='button'
-            onClick={handleNext}
-            disabled={!isStepValid()}
-            className={`px-4 py-2 rounded text-white flex items-center ${
-              isStepValid() ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"
-            }`}
+              type='button'
+              onClick={handleNext}
+              disabled={!isStepValid()}
+              className={`px-4 py-2 rounded text-white flex items-center ${isStepValid() ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"
+                }`}
             >
               {step === 4 ? "Finish" : "Next"}
-              <ChevronRight size={16} className='ml-2'/> 
+              <ChevronRight size={16} className='ml-2' />
             </button>
           </div>
-          
+
         </div>
       </div>
     </Layout>

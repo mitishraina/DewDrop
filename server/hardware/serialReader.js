@@ -38,29 +38,26 @@ class SerialReader {
 
   async connect() {
     try {
-      // List available ports first
       const ports = await this.listPorts();
 
-      // If no port specified, try to find ESP32
       if (!this.port) {
         const esp32Port = ports.find(
           (port) =>
             port.manufacturer?.toLowerCase().includes("silicon labs") ||
             port.manufacturer?.toLowerCase().includes("ftdi") ||
             port.manufacturer?.toLowerCase().includes("wch.cn") ||
-            port.path.toLowerCase().includes("com5") // Also check for COM5 specifically
+            port.path.toLowerCase().includes("com10")
         );
 
         if (esp32Port) {
           this.port = esp32Port.path;
           console.log(`Found ESP32 on port: ${this.port}`);
         } else {
-          // If no port found but COM5 exists, use it
           const com5Port = ports.find(
-            (port) => port.path.toLowerCase() === "com5"
+            (port) => port.path.toLowerCase() === "com10"
           );
           if (com5Port) {
-            this.port = "COM5";
+            this.port = "COM10";
             console.log("Using COM5 as default port");
           } else {
             throw new Error(
@@ -109,13 +106,12 @@ class SerialReader {
           this.onConnectionChange(false);
         }
 
-        // Retry connection if we haven't exceeded max retries
         if (this.retryCount < this.maxRetries) {
           this.retryCount++;
           console.log(
             `Retrying connection (attempt ${this.retryCount}/${this.maxRetries})...`
           );
-          await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait 2 seconds
+          await new Promise((resolve) => setTimeout(resolve, 3000));
           await this.connect();
         } else {
           console.error(
@@ -127,8 +123,6 @@ class SerialReader {
       this.parser.on("data", (data) => {
         try {
           console.log("Raw data received from ESP32:", data);
-          // Parse the incoming data string
-          // Expected format: "T:25.5,H:60.2,pH:7.2,TDS:120"
           const values = {};
           data.split(",").forEach((pair) => {
             const [key, value] = pair.split(":");
@@ -148,7 +142,6 @@ class SerialReader {
             }
           });
 
-          // Check if all required fields are present, regardless of their values
           const requiredFields = ["temperature", "humidity", "ph", "tds"];
           const missingFields = requiredFields.filter(
             (field) => !(field in values)
@@ -159,9 +152,7 @@ class SerialReader {
             return;
           }
 
-          console.log("Parsed values:", values);
-
-          // Update latest readings
+          // console.log("Parsed values:", values);
           this.latestReadings = values;
 
           if (this.onDataCallback) {

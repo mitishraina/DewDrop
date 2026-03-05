@@ -6,10 +6,12 @@ import WaterQualityMetrics from '../components/device/WaterQualityMetrics';
 import PerformanceCharts from '../components/device/PerformanceCharts';
 import QuickActions from '../components/device/QuickActions';
 
+// todo: ph, tds, waterlevel in firebase only, connect firebase and fetch its record
+
+
 const DevicePage = () => {
     const { deviceId } = useParams();
 
-    // Mock fog harvesting station data
     const deviceData = {
         deviceId: deviceId,
         name: 'DewDrop',
@@ -42,10 +44,10 @@ const DevicePage = () => {
 
     return (
         <Layout>
-            <div className="min-h-screen bg-background rounded-xl">
-                <div className="container mx-auto px-4 py-8 mt-10">
+            <div className="min-h-screen bg-white/70 rounded-xl m-8">
+                <div className="container mx-auto py-8 mt-10">
                     <h1 className="text-3xl font-bold text-water-dark mb-8">
-                        Fog Harvesting Station - {deviceData.name}
+                        Water Harvesting Station - {deviceData.name}
                     </h1>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

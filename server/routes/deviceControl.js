@@ -14,7 +14,7 @@ async function connectToESP32() {
         }
 
         port = new SerialPort({
-            path: 'COM5',
+            path: 'COM10',
             baudRate: 115200,
             dataBits: 8,
             parity: 'none',
@@ -22,7 +22,6 @@ async function connectToESP32() {
             autoOpen: false  // Don't open automatically
         });
 
-        // Open port with error handling
         await new Promise((resolve, reject) => {
             port.open((err) => {
                 if (err) {
@@ -43,6 +42,7 @@ async function connectToESP32() {
                     humidity: parseFloat(readings[1]),
                     ph: parseFloat(readings[2]),
                     tds: parseFloat(readings[3]),
+                    waterLevel: parseFloat(readings[4]),
                     timestamp: new Date().toISOString()
                 };
                 console.log('New readings:', latestSensorData);
@@ -56,7 +56,7 @@ async function connectToESP32() {
             port = null;
         });
 
-        console.log('Connected to ESP32 on COM5');  // Fixed log message
+        console.log('Connected to ESP32 on COM5');  
         return true;
     } catch (error) {
         console.error('Error connecting to ESP32:', error);
@@ -69,12 +69,12 @@ let latestSensorData = {
     humidity: 0,
     ph: 0,
     tds: 0,
+    waterLevel: 0,
     timestamp: new Date().toISOString()
 };
 
 connectToESP32();
 
-// Get latest sensor readings
 router.get('/readings', (req, res) => {
     if (!port) {
         return res.status(503).json({ error: 'Device not connected' });
@@ -82,7 +82,6 @@ router.get('/readings', (req, res) => {
     res.json(latestSensorData);
 });
 
-// Health check endpoint
 router.get('/status', (req, res) => {
     res.json({ 
         connected: port !== null,
@@ -90,7 +89,6 @@ router.get('/status', (req, res) => {
     });
 });
 
-// Manual reconnect endpoint
 router.post('/reconnect', async (req, res) => {
     const connected = await connectToESP32();
     if (connected) {

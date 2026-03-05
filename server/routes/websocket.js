@@ -4,14 +4,12 @@ const SerialReader = require("../../client/hardware/sensors/serialReader");
 const wss = new WebSocket.Server({ port: 8080 });
 const serialReader = new SerialReader();
 
-// Store all connected clients
 const clients = new Set();
 
 wss.on("connection", (ws) => {
   console.log("New client connected");
   clients.add(ws);
 
-  // Send initial connection status
   ws.send(
     JSON.stringify({
       type: "connection",
@@ -25,17 +23,14 @@ wss.on("connection", (ws) => {
   });
 });
 
-// Start serial reader
 serialReader.connect();
 
-// Handle serial data
 serialReader.onData((data) => {
   const message = JSON.stringify({
     type: "data",
-    data: data, // Data is already JSON stringified in SerialReader
+    data: data, 
   });
 
-  // Broadcast to all connected clients
   clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(message);
@@ -43,7 +38,6 @@ serialReader.onData((data) => {
   });
 });
 
-// Handle connection status changes
 serialReader.onConnectionStatusChange((isConnected) => {
   const message = JSON.stringify({
     type: "connection",

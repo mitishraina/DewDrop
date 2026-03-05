@@ -12,30 +12,24 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = 3000;
 
-// Enable CORS
 app.use(cors());
 
-// Create HTTP server
 const server = http.createServer(app);
 
-// Create WebSocket server
 const wss = new WebSocketServer({
   server,
   path: "/ws",
   clientTracking: true,
 });
 
-const serialReader = new SerialReader("COM5", 115200);
+const serialReader = new SerialReader("COM10", 115200);
 
-// Store all connected clients
 const clients = new Set();
 
-// Handle WebSocket connections
 wss.on("connection", (ws, req) => {
   console.log("New client connected from:", req.socket.remoteAddress);
   clients.add(ws);
 
-  // Send initial connection status
   ws.send(
     JSON.stringify({
       type: "connection",
@@ -43,7 +37,6 @@ wss.on("connection", (ws, req) => {
     })
   );
 
-  // Send latest readings if available
   const latestReadings = serialReader.getLatestReadings();
   if (latestReadings) {
     ws.send(
@@ -65,24 +58,20 @@ wss.on("connection", (ws, req) => {
   });
 });
 
-// Add a test endpoint
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-// Add an endpoint to get latest readings
 app.get("/api/readings", (req, res) => {
   const readings = serialReader.getLatestReadings();
   res.json(readings);
 });
 
-// Start HTTP server
 server.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${port}`);
   console.log(`WebSocket server is running on ws://localhost:${port}/ws`);
 });
 
-// Start serial reader with retry logic
 async function startSerialReader() {
   try {
     await serialReader.connect();
@@ -95,14 +84,12 @@ async function startSerialReader() {
 
 startSerialReader();
 
-// Handle serial data
 serialReader.onData((data) => {
   try {
     console.log("Raw serial data received:", data);
     const readings = JSON.parse(data);
     console.log("Parsed readings:", readings);
 
-    // Format the readings
     const formattedReadings = {
       tds: parseFloat(readings.tds) || 0,
       ph: parseFloat(readings.ph) || 0,
@@ -112,13 +99,11 @@ serialReader.onData((data) => {
 
     console.log("Formatted readings:", formattedReadings);
 
-    // Create the message to send to clients
     const message = JSON.stringify({
       type: "data",
       data: JSON.stringify(formattedReadings),
     });
 
-    // Broadcast to all connected clients
     let sentCount = 0;
     const clientsToRemove = new Set();
 
@@ -137,7 +122,6 @@ serialReader.onData((data) => {
       }
     });
 
-    // Remove disconnected clients
     clientsToRemove.forEach((client) => {
       clients.delete(client);
     });
@@ -149,7 +133,6 @@ serialReader.onData((data) => {
   }
 });
 
-// Handle connection status changes
 serialReader.onConnectionStatusChange((isConnected) => {
   console.log("Serial connection status changed:", isConnected);
   const message = JSON.stringify({

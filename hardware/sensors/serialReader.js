@@ -2,7 +2,7 @@ import { SerialPort } from "serialport";
 import { ReadlineParser } from "@serialport/parser-readline";
 
 class SerialReader {
-  constructor(port = "COM5", baudRate = 9600) {
+  constructor(port = "COM10", baudRate = 115200) {
     this.port = port;
     this.baudRate = baudRate;
     this.serialPort = null;

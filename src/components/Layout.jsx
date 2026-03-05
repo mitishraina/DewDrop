@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
     const location = useLocation();
 
     const isActive = (path) => {
-        console.log(location.pathname);
+        // console.log(location.pathname);
         return location.pathname === path;
     };
 
