@@ -51,7 +51,7 @@ const AppRoutes = () => (
         <div className="relative z-10">
             <ScrollToTop />
             <Routes>
-                <Route path="/" element={<Index />} />
+                <Route path="/DewDrop" element={<Index />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/device/:deviceId" element={<DevicePage />} />
                 <Route path="/user-dashboard" element={<UserDashboard />} />

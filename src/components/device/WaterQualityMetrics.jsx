@@ -5,7 +5,7 @@ import { getDatabase, ref, onValue, off } from 'firebase/database';
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBggeuHJAM6OhE6QLCyTNRHqnxTj-dd-OQ",
+    apiKey: "USE YOUR OWN",
     authDomain: "dewdrop-b7766.firebaseapp.com",
     databaseURL: "https://dewdrop-b7766-default-rtdb.firebaseio.com/",
     projectId: "dewdrop-b7766",
